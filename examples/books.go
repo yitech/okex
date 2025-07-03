@@ -3,15 +3,16 @@ package main
 import (
 	"context"
 	"crypto/tls"
-	"github.com/amir-the-h/okex"
-	"github.com/amir-the-h/okex/api"
-	"github.com/amir-the-h/okex/events/public"
-	requests "github.com/amir-the-h/okex/requests/ws/public"
-	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
 	_ "net/http/pprof"
 	"time"
+
+	"github.com/gorilla/websocket"
+	"github.com/yitech/okex"
+	"github.com/yitech/okex/api"
+	"github.com/yitech/okex/events/public"
+	requests "github.com/yitech/okex/requests/ws/public"
 )
 
 func main() {
