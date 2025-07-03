@@ -73,7 +73,7 @@ type (
 		Tag      okex.JSONFloat64    `json:"tag"`
 		FillPx   okex.JSONFloat64    `json:"fillPx"`
 		FillSz   okex.JSONFloat64    `json:"fillSz"`
-		FeeCcy   okex.JSONFloat64    `json:"feeCcy"`
+		FeeCcy   string              `json:"feeCcy"`
 		Fee      okex.JSONFloat64    `json:"fee"`
 		InstType okex.InstrumentType `json:"instType"`
 		Side     okex.OrderSide      `json:"side"`
