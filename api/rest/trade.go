@@ -2,6 +2,7 @@ package rest
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/yitech/okex"
@@ -67,20 +68,40 @@ func (c *Trade) PlaceMultipleOrders(req []requests.PlaceOrder) (response respons
 // Cancel an incomplete order.
 //
 // https://www.okex.com/docs-v5/en/#rest-api-trade-cancel-order
-//
+func (c *Trade) CancelOrder(req requests.CancelOrder) (response responses.CancelOrder, err error) {
+	p := "/api/v5/trade/cancel-order"
+	m := okex.S2M(req)
+
+	// Debug: Print the request being sent
+	fmt.Printf("DEBUG: CancelOrder request path: %s\n", p)
+	fmt.Printf("DEBUG: CancelOrder request map: %+v\n", m)
+
+	res, err := c.client.Do(http.MethodPost, p, true, m)
+	if err != nil {
+		return
+	}
+	defer res.Body.Close()
+	d := json.NewDecoder(res.Body)
+	err = d.Decode(&response)
+	return
+}
+
+// CancelBatchOrders
 // Cancel incomplete orders in batches. Maximum 20 orders can be canceled at a time. Request parameters should be passed in the form of an array.
 //
 // https://www.okex.com/docs-v5/en/#rest-api-trade-cancel-multiple-orders
-func (c *Trade) CancelOrder(req []requests.CancelOrder) (response responses.PlaceOrder, err error) {
-	p := "/api/v5/trade/cancel-order"
-	var tmp interface{}
-	tmp = req[0]
-	if len(req) > 1 {
-		tmp = req
-		p = "/api/trade/cancel-batch-orders"
+func (c *Trade) CancelBatchOrders(req []requests.CancelOrder) (response responses.CancelOrder, err error) {
+	p := "/api/v5/trade/cancel-batch-orders"
+
+	// Marshal the slice directly to JSON for batch endpoints
+	j, err := json.Marshal(req)
+	if err != nil {
+		return
 	}
-	m := okex.S2M(tmp)
-	res, err := c.client.Do(http.MethodPost, p, true, m)
+	fmt.Printf("DEBUG: CancelBatchOrders request path: %s\n", p)
+	fmt.Printf("DEBUG: CancelBatchOrders request JSON: %s\n", string(j))
+
+	res, err := c.client.DoRawBody(http.MethodPost, p, true, j)
 	if err != nil {
 		return
 	}

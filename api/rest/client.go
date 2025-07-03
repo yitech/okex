@@ -7,12 +7,13 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/yitech/okex"
-	requests "github.com/yitech/okex/requests/rest/public"
-	responses "github.com/yitech/okex/responses/public_data"
 	"net/http"
 	"strings"
 	"time"
+
+	"github.com/yitech/okex"
+	requests "github.com/yitech/okex/requests/rest/public"
+	responses "github.com/yitech/okex/responses/public_data"
 )
 
 // ClientRest is the rest api client
@@ -123,6 +124,29 @@ func (c *ClientRest) Status(req requests.Status) (response responses.Status, err
 	d := json.NewDecoder(res.Body)
 	err = d.Decode(&response)
 	return
+}
+
+// DoRawBody allows sending a raw JSON body (for batch endpoints)
+func (c *ClientRest) DoRawBody(method, path string, private bool, body []byte) (*http.Response, error) {
+	u := fmt.Sprintf("%s%s", c.baseURL, path)
+	r, err := http.NewRequest(method, u, bytes.NewBuffer(body))
+	if err != nil {
+		return nil, err
+	}
+	r.Header.Add("Content-Type", "application/json")
+
+	bodyStr := string(body)
+	if private {
+		timestamp, sign := c.sign(method, path, bodyStr)
+		r.Header.Add("OK-ACCESS-KEY", c.apiKey)
+		r.Header.Add("OK-ACCESS-PASSPHRASE", c.passphrase)
+		r.Header.Add("OK-ACCESS-SIGN", sign)
+		r.Header.Add("OK-ACCESS-TIMESTAMP", timestamp)
+	}
+	if c.destination == okex.DemoServer {
+		r.Header.Add("x-simulated-trading", "1")
+	}
+	return c.client.Do(r)
 }
 
 func (c *ClientRest) sign(method, path, body string) (string, string) {
