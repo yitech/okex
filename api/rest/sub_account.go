@@ -2,16 +2,17 @@ package rest
 
 import (
 	"encoding/json"
+	"net/http"
+	"strings"
+
 	"github.com/yitech/okex"
 	requests "github.com/yitech/okex/requests/rest/subaccount"
 	responses "github.com/yitech/okex/responses/sub_account"
-	"net/http"
-	"strings"
 )
 
 // SubAccount
 //
-// https://www.okex.com/docs-v5/en/#rest-api-subaccount
+// https://www.okx.com/docs-v5/en/#rest-api-subaccount
 type SubAccount struct {
 	client *ClientRest
 }
@@ -24,7 +25,7 @@ func NewSubAccount(c *ClientRest) *SubAccount {
 // ViewList
 // applies to master accounts only
 //
-// https://www.okex.com/docs-v5/en/#rest-api-subaccount-view-sub-account-list
+// https://www.okx.com/docs-v5/en/#rest-api-subaccount-view-sub-account-list
 func (c *SubAccount) ViewList(req requests.ViewList) (response responses.ViewList, err error) {
 	p := "/api/v5/users/subaccount/list"
 	m := okex.S2M(req)
@@ -41,7 +42,7 @@ func (c *SubAccount) ViewList(req requests.ViewList) (response responses.ViewLis
 // CreateAPIKey
 // applies to master accounts only
 //
-// https://www.okex.com/docs-v5/en/#rest-api-subaccount-create-an-apikey-for-a-sub-account
+// https://www.okx.com/docs-v5/en/#rest-api-subaccount-create-an-apikey-for-a-sub-account
 func (c *SubAccount) CreateAPIKey(req requests.CreateAPIKey) (response responses.APIKey, err error) {
 	p := "/api/v5/users/subaccount/apikey"
 	m := okex.S2M(req)
@@ -61,7 +62,7 @@ func (c *SubAccount) CreateAPIKey(req requests.CreateAPIKey) (response responses
 // QueryAPIKey
 // applies to master accounts only
 //
-// https://www.okex.com/docs-v5/en/#rest-api-subaccount-query-the-apikey-of-a-sub-account
+// https://www.okx.com/docs-v5/en/#rest-api-subaccount-query-the-apikey-of-a-sub-account
 func (c *SubAccount) QueryAPIKey(req requests.QueryAPIKey) (response responses.APIKey, err error) {
 	p := "/api/v5/users/subaccount/apikey"
 	m := okex.S2M(req)
@@ -78,7 +79,7 @@ func (c *SubAccount) QueryAPIKey(req requests.QueryAPIKey) (response responses.A
 // ResetAPIKey
 // applies to master accounts only
 //
-// https://www.okex.com/docs-v5/en/#rest-api-subaccount-reset-the-apikey-of-a-sub-account
+// https://www.okx.com/docs-v5/en/#rest-api-subaccount-reset-the-apikey-of-a-sub-account
 func (c *SubAccount) ResetAPIKey(req requests.CreateAPIKey) (response responses.APIKey, err error) {
 	p := "/api/v5/users/subaccount/modify-apikey"
 	m := okex.S2M(req)
@@ -98,7 +99,7 @@ func (c *SubAccount) ResetAPIKey(req requests.CreateAPIKey) (response responses.
 // DeleteAPIKey
 // applies to master accounts only
 //
-// https://www.okex.com/docs-v5/en/#rest-api-subaccount-delete-the-apikey-of-sub-accounts
+// https://www.okx.com/docs-v5/en/#rest-api-subaccount-delete-the-apikey-of-sub-accounts
 func (c *SubAccount) DeleteAPIKey(req requests.DeleteAPIKey) (response responses.APIKey, err error) {
 	p := "/api/v5/users/subaccount/delete-apikey"
 	m := okex.S2M(req)
@@ -116,7 +117,7 @@ func (c *SubAccount) DeleteAPIKey(req requests.DeleteAPIKey) (response responses
 // Query detailed balance info of Trading Account of a sub-account via the master account
 // (applies to master accounts only)
 //
-// https://www.okex.com/docs-v5/en/#rest-api-subaccount-get-sub-account-balance
+// https://www.okx.com/docs-v5/en/#rest-api-subaccount-get-sub-account-balance
 func (c *SubAccount) GetBalance(req requests.GetBalance) (response responses.GetBalance, err error) {
 	p := "/api/v5/account/subaccount/balances"
 	m := okex.S2M(req)
@@ -133,7 +134,7 @@ func (c *SubAccount) GetBalance(req requests.GetBalance) (response responses.Get
 // HistoryTransfer
 // applies to master accounts only
 //
-// https://www.okex.com/docs-v5/en/#rest-api-subaccount-history-of-sub-account-transfer
+// https://www.okx.com/docs-v5/en/#rest-api-subaccount-history-of-sub-account-transfer
 func (c *SubAccount) HistoryTransfer(req requests.HistoryTransfer) (response responses.HistoryTransfer, err error) {
 	p := "/api/v5/account/subaccount/bills"
 	m := okex.S2M(req)
@@ -150,7 +151,7 @@ func (c *SubAccount) HistoryTransfer(req requests.HistoryTransfer) (response res
 // ManageTransfers
 // applies to master accounts only
 //
-// https://www.okex.com/docs-v5/en/#rest-api-subaccount-master-accounts-manage-the-transfers-between-sub-accounts
+// https://www.okx.com/docs-v5/en/#rest-api-subaccount-master-accounts-manage-the-transfers-between-sub-accounts
 func (c *SubAccount) ManageTransfers(req requests.ManageTransfers) (response responses.ManageTransfer, err error) {
 	p := "/api/v5/account/subaccount/transfer"
 	m := okex.S2M(req)

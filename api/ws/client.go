@@ -7,18 +7,19 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/yitech/okex"
-	"github.com/yitech/okex/events"
-	"github.com/gorilla/websocket"
 	"io"
 	"net/http"
 	"sync"
 	"time"
+
+	"github.com/gorilla/websocket"
+	"github.com/yitech/okex"
+	"github.com/yitech/okex/events"
 )
 
 // ClientWs is the websocket api client
 //
-// https://www.okex.com/docs-v5/en/#websocket-api
+// https://www.okx.com/docs-v5/en/#websocket-api
 type ClientWs struct {
 	Cancel              context.CancelFunc
 	DoneChan            chan interface{}
@@ -78,7 +79,7 @@ func NewClient(ctx context.Context, apiKey, secretKey, passphrase string, url ma
 
 // Connect into the server
 //
-// https://www.okex.com/docs-v5/en/#websocket-api-connect
+// https://www.okx.com/docs-v5/en/#websocket-api-connect
 func (c *ClientWs) Connect(p bool) error {
 	if c.conn[p] != nil {
 		return nil
@@ -104,7 +105,7 @@ func (c *ClientWs) Connect(p bool) error {
 
 // Login
 //
-// https://www.okex.com/docs-v5/en/#websocket-api-login
+// https://www.okx.com/docs-v5/en/#websocket-api-login
 func (c *ClientWs) Login() error {
 	if c.Authorized {
 		return nil
@@ -131,7 +132,7 @@ func (c *ClientWs) Login() error {
 // Subscribe
 // Users can choose to subscribe to one or more channels, and the total length of multiple channels cannot exceed 4096 bytes.
 //
-// https://www.okex.com/docs-v5/en/#websocket-api-subscribe
+// https://www.okx.com/docs-v5/en/#websocket-api-subscribe
 func (c *ClientWs) Subscribe(p bool, ch []okex.ChannelName, args ...map[string]string) error {
 	chCount := max(len(ch), 1)
 	tmpArgs := make([]map[string]string, chCount*len(args))
@@ -155,7 +156,7 @@ func (c *ClientWs) Subscribe(p bool, ch []okex.ChannelName, args ...map[string]s
 
 // Unsubscribe into channel(s)
 //
-// https://www.okex.com/docs-v5/en/#websocket-api-unsubscribe
+// https://www.okx.com/docs-v5/en/#websocket-api-unsubscribe
 func (c *ClientWs) Unsubscribe(p bool, ch []okex.ChannelName, args map[string]string) error {
 	tmpArgs := make([]map[string]string, len(ch))
 	for i, name := range ch {
