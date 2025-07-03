@@ -4,15 +4,15 @@ import "github.com/yitech/okex"
 
 type (
 	PlaceOrderRequest struct {
-		InstID  string         `json:"instId"`
-		TdMode  okex.TradeMode `json:"tdMode"`
-		Side    okex.OrderSide `json:"side"`
-		OrdType okex.OrderType `json:"ordType"`
-		Sz      string         `json:"sz"`
-		Px      string         `json:"px,omitempty"`
-		Tag     string         `json:"tag,omitempty"`
-		ClOrdId string         `json:"clOrdId,omitempty"`
-		TgtCcy  string         `json:"tgtCcy,omitempty"`
+		InstID  string            `json:"instId"`
+		TdMode  okex.TradeMode    `json:"tdMode"`
+		Side    okex.OrderSide    `json:"side"`
+		OrdType okex.OrderType    `json:"ordType"`
+		Sz      string            `json:"sz"`
+		Px      string            `json:"px,omitempty"`
+		Tag     string            `json:"tag,omitempty"`
+		ClOrdId string            `json:"clOrdId,omitempty"`
+		TgtCcy  okex.QuantityType `json:"tgtCcy,omitempty"`
 	}
 
 	CancelOrderRequest struct {
