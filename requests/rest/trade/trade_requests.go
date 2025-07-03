@@ -12,6 +12,7 @@ type (
 		Px      string         `json:"px,omitempty"`
 		Tag     string         `json:"tag,omitempty"`
 		ClOrdId string         `json:"clOrdId,omitempty"`
+		TgtCcy  string         `json:"tgtCcy,omitempty"`
 	}
 
 	CancelOrderRequest struct {
