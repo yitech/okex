@@ -6,39 +6,39 @@ import (
 )
 
 type (
-	Ticker struct {
+	TickerResponse struct {
 		responses.Basic
 		Tickers []*market.Ticker `json:"data,omitempty"`
 	}
-	IndexTicker struct {
+	IndexTickerResponse struct {
 		responses.Basic
 		IndexTickers []*market.IndexTicker `json:"data,omitempty"`
 	}
-	OrderBook struct {
+	OrderBookResponse struct {
 		responses.Basic
 		OrderBooks []*market.OrderBook `json:"data,omitempty"`
 	}
-	Candle struct {
+	CandleResponse struct {
 		responses.Basic
 		Candles []*market.Candle `json:"data,omitempty"`
 	}
-	IndexCandle struct {
+	IndexCandleResponse struct {
 		responses.Basic
 		Candles []*market.IndexCandle `json:"data,omitempty"`
 	}
-	CandleMarket struct {
+	CandleMarketResponse struct {
 		responses.Basic
 		Candles []*market.IndexCandle `json:"data,omitempty"`
 	}
-	Trade struct {
+	TradeResponse struct {
 		responses.Basic
 		Trades []*market.Trade `json:"data,omitempty"`
 	}
-	TotalVolume24H struct {
+	TotalVolume24HResponse struct {
 		responses.Basic
 		TotalVolume24Hs []*market.TotalVolume24H `json:"data,omitempty"`
 	}
-	IndexComponent struct {
+	IndexComponentResponse struct {
 		responses.Basic
 		IndexComponents *market.IndexComponent `json:"data,omitempty"`
 	}
