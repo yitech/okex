@@ -26,7 +26,7 @@ func NewAccount(c *ClientRest) *Account {
 // Retrieve a list of assets (with non-zero balance), remaining balance, and available amount in the account.
 //
 // https://www.okx.com/docs-v5/en/#rest-api-account-get-balance
-func (c *Account) GetBalance(req requests.GetBalance) (response responses.GetBalance, err error) {
+func (c *Account) GetBalance(req requests.GetBalanceRequest) (response responses.GetBalanceResponse, err error) {
 	p := "/api/v5/account/balance"
 	m := okex.S2M(req)
 	if len(req.Ccy) > 0 {
@@ -47,7 +47,7 @@ func (c *Account) GetBalance(req requests.GetBalance) (response responses.GetBal
 // Retrieve information on your positions. When the account is in net mode, net positions will be displayed, and when the account is in long/short mode, long or short positions will be displayed.
 //
 // https://www.okx.com/docs-v5/en/#rest-api-account-get-positions
-func (c *Account) GetPositions(req requests.GetPositions) (response responses.GetPositions, err error) {
+func (c *Account) GetPositions(req requests.GetPositionsRequest) (response responses.GetPositionsResponse, err error) {
 	p := "/api/v5/account/positions"
 	m := okex.S2M(req)
 	if len(req.InstID) > 0 {
@@ -71,7 +71,7 @@ func (c *Account) GetPositions(req requests.GetPositions) (response responses.Ge
 // Get account and position risk
 //
 // https://www.okx.com/docs-v5/en/#rest-api-account-get-account-and-position-risk
-func (c *Account) GetAccountAndPositionRisk(req requests.GetAccountAndPositionRisk) (response responses.GetAccountAndPositionRisk, err error) {
+func (c *Account) GetAccountAndPositionRisk(req requests.GetAccountAndPositionRiskRequest) (response responses.GetAccountAndPositionRiskResponse, err error) {
 	p := "/api/v5/account/positions"
 	m := okex.S2M(req)
 	res, err := c.client.Do(http.MethodGet, p, true, m)
@@ -93,7 +93,7 @@ func (c *Account) GetAccountAndPositionRisk(req requests.GetAccountAndPositionRi
 // Retrieve the account’s bills. The bill refers to all transaction records that result in changing the balance of an account. Pagination is supported, and the response is sorted with most recent first. This endpoint can retrieve data from the last 3 months.
 //
 // https://www.okx.com/docs-v5/en/#rest-api-account-get-bills-details-last-3-months
-func (c *Account) GetBills(req requests.GetBills, arc bool) (response responses.GetBills, err error) {
+func (c *Account) GetBills(req requests.GetBillsRequest, arc bool) (response responses.GetBillsResponse, err error) {
 	p := "/api/v5/account/bills"
 	if arc {
 		p = "/api/account/bills-archive"
@@ -114,7 +114,7 @@ func (c *Account) GetBills(req requests.GetBills, arc bool) (response responses.
 // Retrieve current account configuration.
 //
 // https://www.okx.com/docs-v5/en/#rest-api-account-get-account-configuration
-func (c *Account) GetConfig() (response responses.GetConfig, err error) {
+func (c *Account) GetConfig() (response responses.GetConfigResponse, err error) {
 	p := "/api/v5/account/config"
 	res, err := c.client.Do(http.MethodGet, p, true)
 	if err != nil {
@@ -131,7 +131,7 @@ func (c *Account) GetConfig() (response responses.GetConfig, err error) {
 // FUTURES and SWAP support both long/short mode and net mode. In net mode, users can only have positions in one direction; In long/short mode, users can hold positions in long and short directions.
 //
 // https://www.okx.com/docs-v5/en/#rest-api-account-set-position-mode
-func (c *Account) SetPositionMode(req requests.SetPositionMode) (response responses.SetPositionMode, err error) {
+func (c *Account) SetPositionMode(req requests.SetPositionModeRequest) (response responses.SetPositionModeResponse, err error) {
 	p := "/api/v5/account/set-position-mode"
 	m := okex.S2M(req)
 	res, err := c.client.Do(http.MethodPost, p, true, m)
@@ -156,7 +156,7 @@ func (c *Account) SetPositionMode(req requests.SetPositionMode) (response respon
 //
 // Set leverage for cross/isolated FUTURES/SWAP at underlying/contract level.
 // https://www.okx.com/docs-v5/en/#rest-api-account-set-leverage
-func (c *Account) SetLeverage(req requests.SetLeverage) (response responses.Leverage, err error) {
+func (c *Account) SetLeverage(req requests.SetLeverageRequest) (response responses.LeverageResponse, err error) {
 	p := "/api/v5/account/set-leverage"
 	m := okex.S2M(req)
 	res, err := c.client.Do(http.MethodPost, p, true, m)
@@ -173,7 +173,7 @@ func (c *Account) SetLeverage(req requests.SetLeverage) (response responses.Leve
 // GetMaxBuySellAmount
 //
 // https://www.okx.com/docs-v5/en/#rest-api-account-get-maximum-buy-sell-amount-or-open-amount
-func (c *Account) GetMaxBuySellAmount(req requests.GetMaxBuySellAmount) (response responses.GetMaxBuySellAmount, err error) {
+func (c *Account) GetMaxBuySellAmount(req requests.GetMaxBuySellAmountRequest) (response responses.GetMaxBuySellAmountResponse, err error) {
 	p := "/api/v5/account/max-size"
 	m := okex.S2M(req)
 	if len(req.InstID) > 0 {
@@ -193,7 +193,7 @@ func (c *Account) GetMaxBuySellAmount(req requests.GetMaxBuySellAmount) (respons
 // GetMaxAvailableTradeAmount
 //
 // https://www.okx.com/docs-v5/en/#rest-api-account-get-maximum-available-tradable-amount
-func (c *Account) GetMaxAvailableTradeAmount(req requests.GetMaxAvailableTradeAmount) (response responses.GetMaxAvailableTradeAmount, err error) {
+func (c *Account) GetMaxAvailableTradeAmount(req requests.GetMaxAvailableTradeAmountRequest) (response responses.GetMaxAvailableTradeAmountResponse, err error) {
 	p := "/api/v5/account/max-avail-size"
 	m := okex.S2M(req)
 	res, err := c.client.Do(http.MethodGet, p, true, m)
@@ -211,7 +211,7 @@ func (c *Account) GetMaxAvailableTradeAmount(req requests.GetMaxAvailableTradeAm
 // Increase or decrease the margin of the isolated position.
 //
 // https://www.okx.com/docs-v5/en/#rest-api-account-increase-decrease-margin
-func (c *Account) IncreaseDecreaseMargin(req requests.IncreaseDecreaseMargin) (response responses.IncreaseDecreaseMargin, err error) {
+func (c *Account) IncreaseDecreaseMargin(req requests.IncreaseDecreaseMarginRequest) (response responses.IncreaseDecreaseMarginResponse, err error) {
 	p := "/api/v5/account/position/margin-balance"
 	m := okex.S2M(req)
 	res, err := c.client.Do(http.MethodPost, p, true, m)
@@ -228,7 +228,7 @@ func (c *Account) IncreaseDecreaseMargin(req requests.IncreaseDecreaseMargin) (r
 // GetLeverage
 //
 // https://www.okx.com/docs-v5/en/#rest-api-account-get-leverage
-func (c *Account) GetLeverage(req requests.GetLeverage) (response responses.Leverage, err error) {
+func (c *Account) GetLeverage(req requests.GetLeverageRequest) (response responses.LeverageResponse, err error) {
 	p := "/api/v5/account/leverage-info"
 	m := okex.S2M(req)
 	if len(req.InstID) > 0 {
@@ -248,7 +248,7 @@ func (c *Account) GetLeverage(req requests.GetLeverage) (response responses.Leve
 // GetMaxLoan
 //
 // https://www.okx.com/docs-v5/en/#rest-api-account-get-the-maximum-loan-of-instrument
-func (c *Account) GetMaxLoan(req requests.GetMaxLoan) (response responses.GetMaxLoan, err error) {
+func (c *Account) GetMaxLoan(req requests.GetMaxLoanRequest) (response responses.GetMaxLoanResponse, err error) {
 	p := "/api/v5/account/max-loan"
 	m := okex.S2M(req)
 	res, err := c.client.Do(http.MethodGet, p, true, m)
@@ -265,7 +265,7 @@ func (c *Account) GetMaxLoan(req requests.GetMaxLoan) (response responses.GetMax
 // GetFeeRates
 //
 // https://www.okx.com/docs-v5/en/#rest-api-account-get-fee-rates
-func (c *Account) GetFeeRates(req requests.GetFeeRates) (response responses.GetFeeRates, err error) {
+func (c *Account) GetFeeRates(req requests.GetFeeRatesRequest) (response responses.GetFeeRatesResponse, err error) {
 	p := "/api/v5/account/trade-fee"
 	m := okex.S2M(req)
 	res, err := c.client.Do(http.MethodGet, p, true, m)
@@ -282,7 +282,7 @@ func (c *Account) GetFeeRates(req requests.GetFeeRates) (response responses.GetF
 // GetInterestAccrued
 //
 // https://www.okx.com/docs-v5/en/#rest-api-account-get-interest-accrued
-func (c *Account) GetInterestAccrued(req requests.GetInterestAccrued) (response responses.GetInterestAccrued, err error) {
+func (c *Account) GetInterestAccrued(req requests.GetInterestAccruedRequest) (response responses.GetInterestAccruedResponse, err error) {
 	p := "/api/v5/account/interest-accrued"
 	m := okex.S2M(req)
 	res, err := c.client.Do(http.MethodGet, p, true, m)
@@ -300,11 +300,11 @@ func (c *Account) GetInterestAccrued(req requests.GetInterestAccrued) (response 
 // Get the user's current leveraged currency borrowing interest rate
 //
 // https://www.okx.com/docs-v5/en/#rest-api-account-get-interest-rate
-func (c *Account) GetInterestRates(req requests.GetBalance) (response responses.GetInterestRates, err error) {
+func (c *Account) GetInterestRates(req requests.GetInterestAccruedRequest) (response responses.GetInterestAccruedResponse, err error) {
 	p := "/api/v5/account/interest-rate"
 	m := okex.S2M(req)
-	if len(req.Ccy) > 0 {
-		m["ccy"] = strings.Join(req.Ccy, ",")
+	if req.Ccy != "" {
+		m["ccy"] = req.Ccy
 	}
 	res, err := c.client.Do(http.MethodGet, p, true, m)
 	if err != nil {
@@ -321,7 +321,7 @@ func (c *Account) GetInterestRates(req requests.GetBalance) (response responses.
 // Set the display type of Greeks.
 //
 // https://www.okx.com/docs-v5/en/#rest-api-account-set-greeks-m-bs
-func (c *Account) SetGreeks(req requests.SetGreeks) (response responses.SetGreeks, err error) {
+func (c *Account) SetGreeks(req requests.SetGreeksRequest) (response responses.SetGreeksResponse, err error) {
 	p := "/api/v5/account/set-greeks"
 	m := okex.S2M(req)
 	res, err := c.client.Do(http.MethodPost, p, true, m)
@@ -338,7 +338,7 @@ func (c *Account) SetGreeks(req requests.SetGreeks) (response responses.SetGreek
 // GetMaxWithdrawals
 //
 // https://www.okx.com/docs-v5/en/#rest-api-account-get-maximum-withdrawals
-func (c *Account) GetMaxWithdrawals(req requests.GetBalance) (response responses.GetMaxWithdrawals, err error) {
+func (c *Account) GetMaxWithdrawals(req requests.GetBalanceRequest) (response responses.GetMaxWithdrawalsResponse, err error) {
 	p := "/api/v5/account/max-withdrawal"
 	m := okex.S2M(req)
 	if len(req.Ccy) > 0 {

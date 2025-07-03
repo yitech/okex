@@ -6,67 +6,67 @@ import (
 )
 
 type (
-	GetBalance struct {
+	GetBalanceResponse struct {
 		responses.Basic
 		Balances []*models.Balance `json:"data,omitempty"`
 	}
-	GetPositions struct {
+	GetPositionsResponse struct {
 		responses.Basic
 		Positions []*models.Position `json:"data"`
 	}
-	GetAccountAndPositionRisk struct {
+	GetAccountAndPositionRiskResponse struct {
 		responses.Basic
 		PositionAndAccountRisks []*models.PositionAndAccountRisk `json:"data"`
 	}
-	GetBills struct {
+	GetBillsResponse struct {
 		responses.Basic
 		Bills []*models.Bill `json:"data"`
 	}
-	GetConfig struct {
+	GetConfigResponse struct {
 		responses.Basic
 		Configs []*models.Config `json:"data"`
 	}
-	SetPositionMode struct {
+	SetPositionModeResponse struct {
 		responses.Basic
 		PositionModes []*models.PositionMode `json:"data"`
 	}
-	Leverage struct {
+	LeverageResponse struct {
 		responses.Basic
 		Leverages []*models.Leverage `json:"data"`
 	}
-	GetMaxBuySellAmount struct {
+	GetMaxBuySellAmountResponse struct {
 		responses.Basic
 		MaxBuySellAmounts []*models.MaxBuySellAmount `json:"data"`
 	}
-	GetMaxAvailableTradeAmount struct {
+	GetMaxAvailableTradeAmountResponse struct {
 		responses.Basic
 		MaxAvailableTradeAmounts []*models.MaxAvailableTradeAmount `json:"data"`
 	}
-	IncreaseDecreaseMargin struct {
+	IncreaseDecreaseMarginResponse struct {
 		responses.Basic
 		MarginBalanceAmounts []*models.MarginBalanceAmount `json:"data"`
 	}
-	GetMaxLoan struct {
+	GetMaxLoanResponse struct {
 		responses.Basic
 		Loans []*models.Loan `json:"data"`
 	}
-	GetFeeRates struct {
+	GetFeeRatesResponse struct {
 		responses.Basic
 		Fees []*models.Fee `json:"data"`
 	}
-	GetInterestAccrued struct {
+	GetInterestAccruedResponse struct {
 		responses.Basic
 		InterestAccrues []*models.InterestAccrued `json:"data"`
 	}
-	GetInterestRates struct {
+	GetInterestRatesResponse struct {
 		responses.Basic
 		Interests []*models.InterestRate `json:"data"`
 	}
-	SetGreeks struct {
+	SetGreeksResponse struct {
 		responses.Basic
 		Greeks []*models.Greek `json:"data"`
 	}
-	GetMaxWithdrawals struct {
+	GetMaxWithdrawalsResponse struct {
 		responses.Basic
 		MaxWithdrawals []*models.MaxWithdrawal `json:"data"`
 	}
