@@ -22,12 +22,14 @@ type (
 	}
 
 	OrderListRequest struct {
-		InstID  string          `json:"instId,omitempty"`
-		OrdType okex.OrderType  `json:"ordType,omitempty"`
-		State   okex.OrderState `json:"state,omitempty"`
-		After   int64           `json:"after,omitempty,string"`
-		Before  int64           `json:"before,omitempty,string"`
-		Limit   int64           `json:"limit,omitempty,string"`
+		InstType okex.InstrumentType `json:"instType,omitempty"`
+		InstID   string              `json:"instId,omitempty"`
+		Uly      string              `json:"uly,omitempty"`
+		OrdType  okex.OrderType      `json:"ordType,omitempty"`
+		State    okex.OrderState     `json:"state,omitempty"`
+		After    int64               `json:"after,omitempty,string"`
+		Before   int64               `json:"before,omitempty,string"`
+		Limit    int64               `json:"limit,omitempty,string"`
 	}
 
 	OrderDetailsRequest struct {

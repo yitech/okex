@@ -2,7 +2,6 @@ package rest
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/yitech/okex"
@@ -72,10 +71,6 @@ func (c *Trade) CancelOrder(req requestsTrade.CancelOrderRequest) (response resp
 	p := "/api/v5/trade/cancel-order"
 	m := okex.S2M(req)
 
-	// Debug: Print the request being sent
-	fmt.Printf("DEBUG: CancelOrder request path: %s\n", p)
-	fmt.Printf("DEBUG: CancelOrder request map: %+v\n", m)
-
 	res, err := c.client.Do(http.MethodPost, p, true, m)
 	if err != nil {
 		return
@@ -98,8 +93,6 @@ func (c *Trade) CancelBatchOrders(req []requestsTrade.CancelOrderRequest) (respo
 	if err != nil {
 		return
 	}
-	fmt.Printf("DEBUG: CancelBatchOrders request path: %s\n", p)
-	fmt.Printf("DEBUG: CancelBatchOrders request JSON: %s\n", string(j))
 
 	res, err := c.client.DoRawBody(http.MethodPost, p, true, j)
 	if err != nil {
