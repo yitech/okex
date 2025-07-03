@@ -6,40 +6,48 @@ import (
 )
 
 type (
-	PlaceOrder struct {
+	PlaceOrderResponse struct {
 		responses.Basic
-		PlaceOrders []*trade.PlaceOrder `json:"data"`
+		Orders []*trade.PlaceOrder `json:"data,omitempty"`
 	}
-	CancelOrder struct {
+
+	CancelOrderResponse struct {
 		responses.Basic
-		CancelOrders []*trade.CancelOrder `json:"data"`
+		Orders []*trade.CancelOrder `json:"data,omitempty"`
 	}
-	AmendOrder struct {
+
+	AmendOrderResponse struct {
 		responses.Basic
-		AmendOrders []*trade.AmendOrder `json:"data"`
+		Orders []*trade.AmendOrder `json:"data,omitempty"`
 	}
-	ClosePosition struct {
+
+	ClosePositionResponse struct {
 		responses.Basic
-		ClosePositions []*trade.ClosePosition `json:"data"`
+		Positions []*trade.ClosePosition `json:"data,omitempty"`
 	}
-	OrderList struct {
+
+	OrderListResponse struct {
 		responses.Basic
-		Orders []*trade.Order `json:"data"`
+		Orders []*trade.Order `json:"data,omitempty"`
 	}
-	TransactionDetail struct {
+
+	TransactionDetailResponse struct {
 		responses.Basic
-		TransactionDetails []*trade.TransactionDetail `json:"data"`
+		Transactions []*trade.TransactionDetail `json:"data,omitempty"`
 	}
-	PlaceAlgoOrder struct {
+
+	PlaceAlgoOrderResponse struct {
 		responses.Basic
-		PlaceAlgoOrders []*trade.PlaceAlgoOrder `json:"data"`
+		Orders []*trade.PlaceAlgoOrder `json:"data,omitempty"`
 	}
-	CancelAlgoOrder struct {
+
+	CancelAlgoOrderResponse struct {
 		responses.Basic
-		CancelAlgoOrders []*trade.CancelAlgoOrder `json:"data"`
+		Orders []*trade.CancelAlgoOrder `json:"data,omitempty"`
 	}
-	AlgoOrderList struct {
+
+	AlgoOrderListResponse struct {
 		responses.Basic
-		AlgoOrders []*trade.AlgoOrder `json:"data"`
+		Orders []*trade.AlgoOrder `json:"data,omitempty"`
 	}
 )
